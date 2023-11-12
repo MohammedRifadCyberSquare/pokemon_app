@@ -24,6 +24,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late AnimationController _backgroundAnimationController;
   late Animation<double> _blackBackgroundOpacityAnimation;
+  String? userName; 
 
   late AnimationController _fabAnimationRotationController;
   late AnimationController _fabAnimationOpenController;
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
+initSharedPreferences();
     _pokemonStore = GetIt.instance<PokemonStore>();
     _itemStore = GetIt.instance<ItemStore>();
     _homeStore = GetIt.instance<HomePageStore>();
@@ -114,7 +115,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       child: Builder(builder: (context) {
         return Scaffold(
           key: const Key('home_page'),
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Colors.amberAccent.shade200,
           endDrawer: const Drawer(
             child: DrawerMenuWidget(),
           ),
@@ -153,5 +154,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         );
       }),
     );
+  }
+
+   Future<void> initSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.userName = prefs.getString('userName');
+    print(this.userName);
+    print('00000000000');
   }
 }

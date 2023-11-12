@@ -103,4 +103,16 @@ class AppTheme {
         ? const AppColorsLight()
         : const AppColorsDark();
   }
+  static const Color primaryColor = Color.fromARGB(255, 235, 198, 90);
+  static const Color textButtonColor = Color.fromARGB(255, 236, 236, 234);
+
+
+
 }
+
+class FormColors{
+  static const  Color fieldBackgroundColor = Colors.white;
+  static const Color fieldTextcolor = Colors.white;
+
+}
+

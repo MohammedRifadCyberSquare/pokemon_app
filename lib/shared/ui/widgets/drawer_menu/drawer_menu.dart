@@ -1,3 +1,4 @@
+import 'package:app/modules/authentication/SignuUp/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lottie/lottie.dart';
@@ -6,6 +7,7 @@ import 'package:app/shared/ui/widgets/animated_pokeball.dart';
 import 'package:app/shared/ui/widgets/drawer_menu/widgets/drawer_menu_item.dart';
 import 'package:app/shared/utils/app_constants.dart';
 import 'package:app/theme/app_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerMenuWidget extends StatefulWidget {
   const DrawerMenuWidget({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class DrawerMenuWidget extends StatefulWidget {
 class _DrawerMenuWidgetState extends State<DrawerMenuWidget>
     with TickerProviderStateMixin {
   final HomePageStore _homeStore = GetIt.instance<HomePageStore>();
-
+  String? userName;
   late AnimationController _controller;
 
   @override
@@ -27,6 +29,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget>
           ..repeat();
 
     super.initState();
+    initSharedPreferences();
   }
 
   @override
@@ -38,11 +41,30 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget>
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
-
+    
     return Container(
       color: Theme.of(context).backgroundColor,
+      // decoration: BoxDecoration(image: Ass),
       child: Stack(
         children: [
+          Positioned(
+            child: RichText(
+              text: TextSpan(
+                children: [
+                    TextSpan(
+                            text: 'Welcome! ',
+                            style: TextStyle(color:Colors.black)
+                          ),
+                           TextSpan(
+                            text:this.userName != null? userName: 'user',
+                            style: TextStyle(color:Colors.black)
+                          ) 
+                ],
+              ),
+            ),
+            top: 100,
+            left: 40,
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -105,6 +127,32 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget>
                       text: "Locations"),
                 ],
               ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 12.0),
+                child: this.userName == null? InkWell(
+                  onTap: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignUpPage(),
+                      ),
+                    )
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: [
+                          TextSpan(
+                            text: 'Dont have an account? ',
+                          ),
+                          TextSpan(
+                              text: ' Signup Now! ',
+                              style: TextStyle(color: Colors.blue)),
+                        ]),
+                  ),
+                ): Text(''),
+              )
             ],
           ),
           Align(
@@ -117,5 +165,12 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget>
         ],
       ),
     );
+  }
+
+  Future<void> initSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    this.userName = prefs.getString('userName');
+    print(this.userName);
+    print('00000000000');
   }
 }
