@@ -31,6 +31,9 @@ dependencies:
   pinput: ^3.0.1
  
   intl: ^0.17.0
+  
+  
+  mailer: ^6.0.1
 
 dev_dependencies:
   mockito:

@@ -13,7 +13,7 @@ abstract class Router {
   static Map<String, WidgetBuilder> getRoutes(context) {
     return {
       // home: (context) =>  EmailOtp(userEmail: 'rifad@cybersquare.org',),
-      home: (context) =>  HomePage(),
+      home: (context) =>  LoginScreen(),
 
       items: (context) => ItemsPage(),
     };

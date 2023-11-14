@@ -305,8 +305,8 @@ class SignUpPage extends StatelessWidget {
                                     AddUserEvent(
                                         userName:  _textNameController.text,
                                         email: _textEmailController.text,
-                                        mobile: num.parse(
-                                            _textPasswordController.text),
+                                        mobile: 
+                                            num.parse(_textMobileController.text),
                                         password: _textPasswordController.text),
                                   );
                               // context.read()<SignupBloc>().add(

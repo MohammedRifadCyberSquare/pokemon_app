@@ -22,6 +22,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           print('Response: $response');
           if(response['statusCode'] == 201){
             print('addeddd');
+            print("-------${response['email']} and ${response['generatedOtp'].runtimeType}");
+           await AuthService().sendOtpToUser(response['email'], response['generatedOtp']);
             emit(SignupSuccess(email:event.email));
           }
           if(response['statusCode'] == 409){
