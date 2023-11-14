@@ -1,0 +1,38 @@
+{
+    "news": [
+      {
+        "id": 1,
+        "title": "Pokemon rumble rushes arrives soon",
+        "date": "15 May 2019",
+        "pic": "https://th.bing.com/th/id/R.08fc7ddb75c4e8e30bf1474dd8d5b112?rik=5uTnE915KXGzsg&riu=http%3a%2f%2fwww.animextremist.com%2fimagenes%2fpokemon%2fpokemon24.jpg&ehk=Y1YkXdwFX05HERaCP1EXvgG2huhe33nvjuvEr2NpILs%3d&risl=&pid=ImgRaw&r=0"
+      },
+      {
+        "id": 2,
+        "title": "news title",
+        "date": "15 Dec 2023",
+        "pic": "https://th.bing.com/th/id/R.a9133be45040e30406036a78d479bd36?rik=nLapF2LCiYIwOw&riu=http%3a%2f%2fpngimg.com%2fuploads%2fpokemon%2fpokemon_PNG86.png&ehk=uTVXAPVNeZWuUn%2fTNTc5BEpxXXEbzOxfVYxXXlCLyUw%3d&risl=&pid=ImgRaw&r=0"
+      },
+      {
+        "id": 1,
+        "title": "news title",
+        "date": "10/12/2023",
+        "pic": "https://th.bing.com/th/id/R.47df5adf62b32396169ba032a8550a16?rik=YCpInTqBVRP6kQ&riu=http%3a%2f%2fanimextremist.com%2fimagenes%2fpokemon%2fpokemon27.jpg&ehk=1aJMfB9XZXzGuAN6sKvTX2vnKE77l9eOnmJXKiMLn1I%3d&risl=&pid=ImgRaw&r=0"
+      },
+      {
+        "id": 2,
+        "title": "news title",
+        "date": "10/12/2023",
+        "pic": "https://th.bing.com/th/id/R.a9133be45040e30406036a78d479bd36?rik=nLapF2LCiYIwOw&riu=http%3a%2f%2fpngimg.com%2fuploads%2fpokemon%2fpokemon_PNG86.png&ehk=uTVXAPVNeZWuUn%2fTNTc5BEpxXXEbzOxfVYxXXlCLyUw%3d&risl=&pid=ImgRaw&r=0"
+      },
+      {
+        "id": 1,
+        "title": "news title",
+        "date": "10/12/2023",
+        "pic": "https://th.bing.com/th/id/R.47df5adf62b32396169ba032a8550a16?rik=YCpInTqBVRP6kQ&riu=http%3a%2f%2fanimextremist.com%2fimagenes%2fpokemon%2fpokemon27.jpg&ehk=1aJMfB9XZXzGuAN6sKvTX2vnKE77l9eOnmJXKiMLn1I%3d&risl=&pid=ImgRaw&r=0"
+      }
+       
+       
+    ]
+     
+  }
+  

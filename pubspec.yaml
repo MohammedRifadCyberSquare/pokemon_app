@@ -62,3 +62,6 @@ flutter:
     - assets/images/pokemons_types/20/water.png
     - assets/images/R.jpg
     - assets/images/poke.jpg
+    - assets/images/sliver.jpg
+    - assets/images/poke.png
+    - assets/news.json
