@@ -40,6 +40,7 @@ class SignUpPage extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => EmailOtp(
                     userEmail: state.email,
+                    isSignup: true,
                   ),
                 ),
               );

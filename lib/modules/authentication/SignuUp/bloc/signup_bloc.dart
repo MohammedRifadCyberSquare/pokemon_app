@@ -20,16 +20,24 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         try {
           dynamic response = await AuthService().registerUser(userData);
           print('Response: $response');
-          if(response['statusCode'] == 201){
+          if (response['statusCode'] == 201) {
             print('addeddd');
-            print("-------${response['email']} and ${response['generatedOtp'].runtimeType}");
-           await AuthService().sendOtpToUser(response['email'], response['generatedOtp']);
-            emit(SignupSuccess(email:event.email));
+            print(
+                "-------${response['email']} and ${response['generatedOtp'].runtimeType}");
+
+            String emailContent = '''Dear user,
+Your code is ${response['generatedOtp']}. Use it to verify your email id.
+
+  Yours,
+  Pokedex Team
+''';
+            await AuthService().sendOtpToUser(
+                response['email'], 'Verification Code', emailContent);
+            emit(SignupSuccess(email: event.email));
           }
-          if(response['statusCode'] == 409){
+          if (response['statusCode'] == 409) {
             print('email taken');
             emit(EmailExist());
-            
           }
         } catch (e) {
           print('Error: $e');

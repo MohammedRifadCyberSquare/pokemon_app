@@ -1,6 +1,7 @@
 import 'package:app/modules/authentication/Login/login_page.dart';
 import 'package:app/modules/authentication/otp/bloc/email_otp_bloc.dart';
 import 'package:app/modules/authentication/otp/bloc/resend-otp/resend_otp_bloc.dart';
+import 'package:app/modules/authentication/password_reset/password_reset.dart';
 import 'package:app/shared/utils/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,9 @@ import 'package:pinput/pinput.dart';
 
 class EmailOtp extends StatelessWidget {
   final String userEmail;
-  EmailOtp({required this.userEmail});
+  final String otp;
+  final bool isSignup;
+  EmailOtp({required this.userEmail, required this.isSignup, this.otp = ''});
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +74,8 @@ class EmailOtp extends StatelessWidget {
             ),
             BlocListener<ResendOtpBloc, ResendOtpState>(
               listener: (context, state) {
-               
                 if (state is ResendSuccess) {
-                   print('22222222222222222224$state');
+                  print('22222222222222222224$state');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green,
@@ -130,48 +132,70 @@ class EmailOtp extends StatelessWidget {
                     ),
                     onCompleted: (pin) => debugPrint(pin),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
-                    child: Text('Didn\'t receive an OTP?'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32.0),
-                    child: BlocBuilder<ResendOtpBloc, ResendOtpState>(
-                      builder: (context, state) {
-                        return InkWell(
-                         
-                          onTap: () {
-                             print('resend clik=cked');
-                            context.read<ResendOtpBloc>().add(ResendOtp(
-                                  mail: userEmail,
-                                ));
-                          },
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'Resend OTP',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  decoration: TextDecoration.underline),
-                            ),
+                  isSignup
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 32.0),
+                          child: Text('Didn\'t receive an OTP?'),
+                        )
+                      : Text(''),
+                  isSignup
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 32.0),
+                          child: BlocBuilder<ResendOtpBloc, ResendOtpState>(
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  print('resend clik=cked');
+                                  context.read<ResendOtpBloc>().add(ResendOtp(
+                                        mail: userEmail,
+                                      ));
+                                },
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: 'Resend OTP',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        )
+                      : Text(''),
                   hSpace(60),
                   SizedBox(
                     width: 100,
                     child: BlocBuilder<EmailOtpBloc, EmailOtpState>(
                       builder: (context, state) {
                         return TextButton(
-                          onPressed: () {
-                            context.read<EmailOtpBloc>().add(SubmitOpt(
-                                  email: userEmail,
-                                  otp: _textOtpController.text,
-                                ));
-                          },
+                          onPressed: isSignup
+                              ? () {
+                                  context.read<EmailOtpBloc>().add(SubmitOpt(
+                                        email: userEmail,
+                                        otp: _textOtpController.text,
+                                      ));
+                                }
+                              : () {
+                                  if (_textOtpController.text == otp) {
+                                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PasswordResetScreen(email: userEmail,),
+                    ),
+                  );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content:
+                                            Center(child: Text('Invalid Otp')),
+                                      ),
+                                    );
+                                  }
+                                },
                           child: Text(
                             'Submit',
                             style: TextStyle(color: Colors.white),

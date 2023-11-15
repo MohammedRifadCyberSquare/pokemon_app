@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late Animation<double> _blackBackgroundOpacityAnimation;
   String? userName;
   final _newsBloc = new NewsBloc();
-
+    bool isLoggedIn = false;
   late AnimationController _fabAnimationRotationController;
   late AnimationController _fabAnimationOpenController;
   late Animation<double> _fabRotateAnimation;
@@ -124,8 +124,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return Scaffold(
           key: const Key('home_page'),
 
-          endDrawer: const Drawer(
-            child: DrawerMenuWidget(),
+          endDrawer:   Drawer(
+            child: DrawerMenuWidget(isLoggedIn: isLoggedIn, userName: userName,),
           ),
           body: CustomScrollView(
             slivers: [
@@ -426,18 +426,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     this.userName = prefs.getString('userName');
     print(this.userName);
-    print('00000000000');
+    if(userName != ''){
+      isLoggedIn = true;
+    }
+    
   }
-
-  // Widget buildPokedexGrid() => SliverToBoxAdapter(
-  //   child: Container(
-  //     // child: ListView()
-  //   ),
-  //       // child: GridView.builder(
-  //       //   gridDelegate:
-  //       //       SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-  //       //   itemBuilder: (context, index) => Container(),
-  //       //   shrinkWrap: true,
-  //       // ),
-  //     );
+ 
 }

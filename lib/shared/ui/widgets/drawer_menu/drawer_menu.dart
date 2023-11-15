@@ -10,7 +10,13 @@ import 'package:app/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DrawerMenuWidget extends StatefulWidget {
-  const DrawerMenuWidget({Key? key}) : super(key: key);
+  final bool isLoggedIn;
+  final String? userName;
+  DrawerMenuWidget({
+    this.userName = '',
+    required this.isLoggedIn,
+
+  });
 
   @override
   State<DrawerMenuWidget> createState() => _DrawerMenuWidgetState();
@@ -41,7 +47,7 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget>
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
-    
+
     return Container(
       color: Theme.of(context).backgroundColor,
       // decoration: BoxDecoration(image: Ass),
@@ -51,14 +57,11 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget>
             child: RichText(
               text: TextSpan(
                 children: [
-                    TextSpan(
-                            text: 'Welcome! ',
-                            style: TextStyle(color:Colors.black)
-                          ),
-                           TextSpan(
-                            text:this.userName != null? userName: 'user',
-                            style: TextStyle(color:Colors.black)
-                          ) 
+                  TextSpan(
+                      text: 'Welcome! ', style: TextStyle(color: Colors.black)),
+                  TextSpan(
+                      text: this.userName != null ? userName : 'user',
+                      style: TextStyle(color: Colors.black))
                 ],
               ),
             ),
@@ -127,32 +130,35 @@ class _DrawerMenuWidgetState extends State<DrawerMenuWidget>
                       text: "Locations"),
                 ],
               ),
-
-              Padding(
-                padding: const EdgeInsets.only(top: 12.0),
-                child: this.userName == null? InkWell(
-                  onTap: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SignUpPage(),
-                      ),
+              userName == ''
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 12.0),
+                      child: this.userName == null
+                          ? InkWell(
+                              onTap: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignUpPage(),
+                                  ),
+                                )
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                    style: DefaultTextStyle.of(context).style,
+                                    children: [
+                                      TextSpan(
+                                        text: 'Dont have an account? ',
+                                      ),
+                                      TextSpan(
+                                          text: ' Signup Now! ',
+                                          style: TextStyle(color: Colors.blue)),
+                                    ]),
+                              ),
+                            )
+                          : Text(''),
                     )
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: [
-                          TextSpan(
-                            text: 'Dont have an account? ',
-                          ),
-                          TextSpan(
-                              text: ' Signup Now! ',
-                              style: TextStyle(color: Colors.blue)),
-                        ]),
-                  ),
-                ): Text(''),
-              )
+                  : Text('')
             ],
           ),
           Align(
